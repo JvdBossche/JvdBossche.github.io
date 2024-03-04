@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800");
+/* Styles go here */
+h1 {
+  font-family: "Open Sans";
+  font-weight: bold;
+  font-size: 3em;
+  line-height: 28px;
+  color: black;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 2px;
+}
+.qrflex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.formgrid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 3px;
+}
+label {
+  grid-column: 1 / 2;
+  font-family: "Open Sans";
+  text-align: right;
+  padding: 5px;
+}
+input {
+  grid-column: 2 / 3;
+  font-family: "Open Sans";
+}
+textarea {
+  font-family:'Courier New', Courier, monospace;
+  font-size: 8px;
+}
+.fullwidth {
+  grid-column: 1 / 3;
+}
+.qrcode {
+  width: 400px;
+  height: 400px;
+  margin: auto;
+}

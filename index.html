@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="nl-be">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css?v=01">
+    <script src="sha1.js?v=01"></script>
+    <script src="qrcode.min.js?v=01"></script>
+    <script src="script.js?v=01"></script>
+    
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="PayPage">
+    <meta name="apple-mobile-web-app-title" content="PayPage">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-navbutton-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="msapplication-starturl" content="/index.html">
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="512x512" href="VKT_Logo_Kampeermiddel_GeenRand_512.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="VKT_Logo_Kampeermiddel_GeenRand_512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="VKT_Logo_Kampeermiddel_GeenRand_192.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="192x192" href="VKT_Logo_Kampeermiddel_GeenRand_192.png">
+    <link rel="icon" type="image/svg" href="VKT_Logo_Kampeermiddel_GeenRand.svg">
+    <link rel="apple-touch-icon" type="image/svg" href="VKT_Logo_Kampeermiddel_GeenRand.svg">
+
+    <title>VKT elektronisch betalen</title>
+    <meta name="description" content="Een platform waarmee u op een beveiligde manier een betaling aan Vlaamse Kampeertoeristen VZW kan uitvoeren.">
+  </head>
+
+  <body>
+    <header>
+      <h1><img src="logo.svg" width=268 alt="VKT Logo"> Elektronisch betalen</h1>
+    </header>
+    <div class="qrflex">
+      <form method="post" action="https://secure.paypage.be/ncol/test/orderstandard_utf8.asp" id=form1 name=form1 accept-charset="UTF-8" class="formgrid">
+        <input type="reset" value="Maak formulier leeg">
+        <label for="VKT_REFERENCE">Referentie</label>         <input name="VKT_REFERENCE" id="VKT_REFERENCE" value="VKT_KHD_22" size="26" maxlength="26" autofocus>
+        <label for="VKT_AMOUNTDEC">Bedrag (99.99)</label>     <input name="VKT_AMOUNTDEC" id="VKT_AMOUNTDEC" value=0.0 size="6" maxlength="15" onchange="setAmount(this.value)">
+        <label for="CN">Naam Kaarthouder</label>              <input name="CN"            id="CN"            value="" size="50" minlength="2" maxlength="35">
+        <label for="EMAIL">E-mail adres</label>               <input name="EMAIL"         id="EMAIL"         value="" size="50" maxlength="50">
+        <label for="CUID">VKT Lidnummer</label>               <input name="CUID"          id="CUID"          value="" size="50" maxlength="50">
+        <label for="OWNERADDRESS">Straat, Nummer, Bus</label> <input name="OWNERADDRESS"  id="OWNERADDRESS"  value="" size="50" maxlength="35">
+        <label for="OWNERZIP">Postcode</label>                <input name="OWNERZIP"      id="OWNERZIP"      value="" size="10" maxlength="10">
+        <label for="OWNERTOWN">Gemeente</label>               <input name="OWNERTOWN"     id="OWNERTOWN"     value="" size="50" maxlength="25">
+        <label for="OWNERCTY">Landcode</label>                <input name="OWNERCTY"      id="OWNERCTY"      value="BE" size="5" maxlength="2">
+        <label for="OWNERTELNO">Telefoonnummer</label>        <input name="OWNERTELNO"    id="OWNERTELNO"    value="" size="20" maxlength="20">
+        <input type="button" value="Bereken SHA-1" onclick="calculateSha1()" class="fullwidth"/>
+        <textarea name="VKT_SHA1" id="VKT_SHA1" cols="200" rows="5" readonly class="fullwidth">Bereken SHA-1!</textarea>
+        <input type="submit" value="Ga direct naar betaalpagina" id=submit2 name=submit2 class="fullwidth">
+        <input type="button" value="Stel URL samen" onclick="calculateUrl()" class="fullwidth"/>
+        <textarea name="VKT_URL" id="VKT_URL" cols="200" rows="5" readonly class="fullwidth">Bereken URL!</textarea>
+        <input type="button" value="Genereer QR-code" onclick="generateQr()" class="fullwidth"/>
+        <div class="display: none;">
+          <input type="hidden" name="AMOUNT"         id="AMOUNT"         value="100"><!-- berekend m.b.v. setAmount() -->
+          <input type="hidden" name="ORDERID"        id="ORDERID"        value=""><!-- berekend als onderdeel van calculateSha1() -->
+          <input type="hidden" name="SHASIGN"        id="SHASIGN"        value=""><!-- berekend als onderdeel van calculateSha1() -->
+          
+          <input type="hidden" name="PSPID"          id="PSPID"          value="kampeerecht"><!-- Fixed -->
+          <input type="hidden" name="CURRENCY"       id="CURRENCY"       value="EUR">
+          <input type="hidden" name="LANGUAGE"       id="LANGUAGE"       value="nl_BE">
+          
+          <!-- Layoutinformatie: zie Look en feel van de betaalpagina -->
+          <input type="hidden" name="TITLE"          id="TITLE"          value="Betaling aan Vlaamse Kampeertoeristen VZW">
+          <input type="hidden" name="BGCOLOR"        id="BGCOLOR"        value="">
+          <input type="hidden" name="TXTCOLOR"       id="TXTCOLOR"       value="">
+          <input type="hidden" name="TBLBGCOLOR"     id="TBLBGCOLOR"     value="">
+          <input type="hidden" name="TBLTXTCOLOR"    id="TBLTXTCOLOR"    value="">
+          <input type="hidden" name="BUTTONBGCOLOR"  id="BUTTONBGCOLOR"  value="">
+          <input type="hidden" name="BUTTONTXTCOLOR" id="BUTTONTXTCOLOR" value="">
+          <input type="hidden" name="LOGO"           id="LOGO"           value="logo.png">
+          <input type="hidden" name="FONTTYPE"       id="FONTTYPE"       value="Verdana, Geneva, sans-serif">
+  
+  
+          <!-- Feedback na de betaling (post-sale): zie Transactiefeedback naar de klant -->
+          <input type="hidden" name="ACCEPTURL"      id="ACCEPTURL"      value="">
+          <input type="hidden" name="DECLINEURL"     id="DECLINEURL"     value="">
+          <input type="hidden" name="EXCEPTIONURL"   id="EXCEPTIONURL"   value="">
+          <input type="hidden" name="CANCELURL"      id="CANCELURL"      value="">
+        </div>
+      </form>
+      <div id="qrcode" class="qrcode"></div>
+      <script>
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+          width : 400,
+          height : 400,
+          correctLevel : QRCode.CorrectLevel.L
+        });
+      </script>
+    </div>
+  </body>
+</html>

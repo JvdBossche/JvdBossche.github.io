@@ -1,0 +1,27 @@
+{
+  "name": "Vlaamse Kampeertoeristen PayPage",
+  "short_name": "PayPage",
+  "description": "Een platform waarmee u op een beveiligde manier een betaling aan Vlaamse Kampeertoeristen VZW kan uitvoeren.",
+  "lang": "nl-be",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": ".",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "VKT_Logo_Kampeermiddel_GeenRand.svg",
+      "type": "image/svg"
+    },
+    {
+      "src": "VKT_Logo_Kampeermiddel_GeenRand_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "VKT_Logo_Kampeermiddel_GeenRand_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
